@@ -1,4 +1,4 @@
-# Imagenation - Generative Photo AI
+# ImaGENation - Generative Photo AI
 
 
 Exploring how to build an API that trains and generate photos featuring theu user. Using FastAPI, Upstash, Replicate, Jupyter, and more
