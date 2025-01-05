@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 import helpers
 app = FastAPI()
 
@@ -8,6 +9,15 @@ app = FastAPI()
 def read_index():
     return {"Hello": "World"}
 
-@app.get("/generate_image")
-def generate_image(prompt: str):
-    return helpers.generate_image(prompt)
+
+class ImageGenerationRequest(BaseModel):
+    prompt: str
+
+
+@app.post("/generate")
+def generate_image(data: ImageGenerationRequest):
+    try:
+        pred_result = helpers.generate_image(data.prompt)
+        return pred_result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
